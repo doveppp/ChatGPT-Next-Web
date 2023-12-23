@@ -325,41 +325,20 @@ function ClearContextDivider() {
     </div>
   );
 }
-function ChatAction(props: {
-  text: string;
-  icon: JSX.Element;
-  onClick: () => void;
-}) {
-  const iconRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState({
-    full: 0, // 初始值改为0
-    icon: 0, // 初始值改为0
-  });
 
-  useEffect(() => {
-    updateWidth(); // 组件挂载时立即更新宽度
-  }, []); 
-
-  function updateWidth() {
-    if (!iconRef.current || !textRef.current) return;
-    const getWidth = (dom: HTMLDivElement) => dom.getBoundingClientRect().width;
-    const textWidth = getWidth(textRef.current);
-    const iconWidth = getWidth(iconRef.current);
-    setWidth({
-      full: textWidth + iconWidth,
-      icon: iconWidth,
-    });
-  }
+function ChatAction(props) {
+  const iconRef = useRef(null);
+  const textRef = useRef(null);
 
   return (
     <div
       className={`${styles["chat-input-action"]} clickable`}
       onClick={props.onClick}
-      style={{
-        "--icon-width": `${width.icon}px`,
-        "--full-width": `${width.full}px`,
-      } as React.CSSProperties}
+      style={
+        {
+          // 这里可以设置一些静态的样式，或者根据需要保持它们动态
+        }
+      }
     >
       <div ref={iconRef} className={styles["icon"]}>
         {props.icon}
