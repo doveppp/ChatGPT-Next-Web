@@ -331,17 +331,38 @@ function ChatAction(props: {
   icon: JSX.Element;
   onClick: () => void;
 }) {
-  const iconRef = useRef(null);
-  const textRef = useRef(null);
+  const iconRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState({
+    full: 16,
+    icon: 16,
+  });
+
+  function updateWidth() {
+    if (!iconRef.current || !textRef.current) return;
+    const getWidth = (dom: HTMLDivElement) => dom.getBoundingClientRect().width;
+    const textWidth = getWidth(textRef.current);
+    const iconWidth = getWidth(iconRef.current);
+    setWidth({
+      full: textWidth + iconWidth,
+      icon: iconWidth,
+    });
+  }
 
   return (
     <div
       className={`${styles["chat-input-action"]} clickable`}
-      onClick={props.onClick}
+      onClick={() => {
+        props.onClick();
+        setTimeout(updateWidth, 1);
+      }}
+      onMouseEnter={updateWidth}
+      onTouchStart={updateWidth}
       style={
         {
-          // 这里可以设置一些静态的样式，或者根据需要保持它们动态
-        }
+          "--icon-width": `${width.full}px`,
+          "--full-width": `${width.full}px`,
+        } as React.CSSProperties
       }
     >
       <div ref={iconRef} className={styles["icon"]}>
