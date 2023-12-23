@@ -326,7 +326,11 @@ function ClearContextDivider() {
   );
 }
 
-function ChatAction(props) {
+function ChatAction(props: {
+  text: string;
+  icon: JSX.Element;
+  onClick: () => void;
+}) {
   const iconRef = useRef(null);
   const textRef = useRef(null);
 
