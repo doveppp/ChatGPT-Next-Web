@@ -325,7 +325,6 @@ function ClearContextDivider() {
     </div>
   );
 }
-
 function ChatAction(props: {
   text: string;
   icon: JSX.Element;
@@ -337,6 +336,10 @@ function ChatAction(props: {
     full: 16,
     icon: 16,
   });
+
+  useEffect(() => {
+    updateWidth();
+  }, [props.text, props.icon]);
 
   function updateWidth() {
     if (!iconRef.current || !textRef.current) return;
@@ -352,15 +355,10 @@ function ChatAction(props: {
   return (
     <div
       className={`${styles["chat-input-action"]} clickable`}
-      onClick={() => {
-        props.onClick();
-        setTimeout(updateWidth, 1);
-      }}
-      onMouseEnter={updateWidth}
-      onTouchStart={updateWidth}
+      onClick={() => props.onClick()}
       style={
         {
-          "--icon-width": `${width.full}px`,
+          "--icon-width": `${width.icon}px`,
           "--full-width": `${width.full}px`,
         } as React.CSSProperties
       }
@@ -368,12 +366,13 @@ function ChatAction(props: {
       <div ref={iconRef} className={styles["icon"]}>
         {props.icon}
       </div>
-      <div className={styles["text"]} ref={textRef}>
+      <div className={styles["icon"]} ref={textRef}>
         {props.text}
       </div>
     </div>
   );
 }
+
 
 function useScrollToBottom() {
   // for auto-scroll
