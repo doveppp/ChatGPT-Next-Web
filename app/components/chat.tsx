@@ -339,7 +339,6 @@ function ChatAction(props: {
   });
 
   function updateWidth() {
-    if (!iconRef.current || !textRef.current) return;
     const getWidth = (dom: HTMLDivElement) => dom.getBoundingClientRect().width;
     const textWidth = getWidth(textRef.current);
     const iconWidth = getWidth(iconRef.current);
