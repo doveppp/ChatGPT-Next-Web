@@ -325,7 +325,6 @@ function ClearContextDivider() {
     </div>
   );
 }
-
 function ChatAction(props: {
   text: string;
   icon: JSX.Element;
@@ -334,11 +333,16 @@ function ChatAction(props: {
   const iconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState({
-    full: 16,
-    icon: 16,
+    full: 0, // 初始值改为0
+    icon: 0, // 初始值改为0
   });
 
+  useEffect(() => {
+    updateWidth(); // 组件挂载时立即更新宽度
+  }, []); 
+
   function updateWidth() {
+    if (!iconRef.current || !textRef.current) return;
     const getWidth = (dom: HTMLDivElement) => dom.getBoundingClientRect().width;
     const textWidth = getWidth(textRef.current);
     const iconWidth = getWidth(iconRef.current);
@@ -351,18 +355,11 @@ function ChatAction(props: {
   return (
     <div
       className={`${styles["chat-input-action"]} clickable`}
-      onClick={() => {
-        props.onClick();
-        setTimeout(updateWidth, 1);
-      }}
-      onMouseEnter={updateWidth}
-      onTouchStart={updateWidth}
-      style={
-        {
-          "--icon-width": `${width.icon}px`,
-          "--full-width": `${width.full}px`,
-        } as React.CSSProperties
-      }
+      onClick={props.onClick}
+      style={{
+        "--icon-width": `${width.icon}px`,
+        "--full-width": `${width.full}px`,
+      } as React.CSSProperties}
     >
       <div ref={iconRef} className={styles["icon"]}>
         {props.icon}
