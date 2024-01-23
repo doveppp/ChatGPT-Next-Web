@@ -158,7 +158,7 @@ export function SideBar(props: { className?: string }) {
           NextChat
         </div>
         <div className={styles["sidebar-sub-title"]}>
-          第一选择 <a href="https://pandora.doveppp.com/" target="_blank" rel="noopener noreferrer">https://pandora.doveppp.com/</a> 网站使用！这个网站又快又好！密码是一样的！ 本网站只作为备用站。 若发现本网站不能使用之后可以尝试在chat后边添加数字，例如chat1.doveppp.com,chat2.doveppp.com。 公告站：<a href="https://doveppp.com/" target="_blank" rel="noopener noreferrer">https://doveppp.com/</a>
+          若发现本网站不能使用之后可以尝试在chat后边添加数字，例如chat1.doveppp.com,chat2.doveppp.com。 公告站：<a href="https://doveppp.com/" target="_blank" rel="noopener noreferrer">https://doveppp.com/</a>
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
