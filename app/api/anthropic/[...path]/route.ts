@@ -146,7 +146,7 @@ async function request(req: NextRequest) {
       const jsonBody = JSON.parse(clonedBody) as { model?: string };
 
       // not undefined and is false
-      if (jsonBody?.model !== "gpt-3.5-turbo" && modelTable[jsonBody?.model ?? ""].available === false) {
+      if (modelTable[jsonBody?.model ?? ""].available === false) {
         return NextResponse.json(
           {
             error: true,
