@@ -87,6 +87,8 @@ function createEmptySession(): ChatSession {
 }
 
 function getSummarizeModel(currentModel: string) {
+  // force to use 3.5 to summarize
+  return SUMMARIZE_MODEL;
   // if it is using gpt-* models, force to use 3.5 to summarize
   if (currentModel.startsWith("gpt")) {
     const configStore = useAppConfig.getState();
